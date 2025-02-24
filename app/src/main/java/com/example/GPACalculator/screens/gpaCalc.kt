@@ -1,6 +1,7 @@
 
 package com.example.GPACalculator.screens
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,6 +18,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,8 +30,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -37,6 +39,7 @@ val creditOptions = listOf("1", "1.5", "2", "3", "4", "6") // Updated credits li
 val gradeOptions = listOf("S", "A", "B", "C", "D", "E", "F", "N") // Grades list
 val gradeValues = mapOf("S" to 10, "A" to 9, "B" to 8, "C" to 7, "D" to 6, "E" to 5, "F" to 0, "N" to 0)
 
+@Preview
 @Composable
 fun GPACalculatorScreen2() {
     val selectedCredits = remember { mutableStateListOf(*Array(7) { "" }) }
@@ -46,12 +49,12 @@ fun GPACalculatorScreen2() {
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .background(Color(0xff121212)),
+            .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "GPA Calculator",
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onBackground,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(top= 10.dp, bottom = 16.dp)
@@ -72,8 +75,8 @@ fun GPACalculatorScreen2() {
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(20.dp)),
                         colors = ButtonDefaults.outlinedButtonColors(
-                            containerColor = Color.DarkGray,
-                            contentColor = Color.White
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onBackground
                         )
                     ) {
                         Text(text = selectedCredits[i].ifEmpty { "Credits" })
@@ -82,11 +85,11 @@ fun GPACalculatorScreen2() {
                     DropdownMenu(
                         expanded = creditExpanded,
                         onDismissRequest = { creditExpanded = false },
-                        modifier = Modifier.background(Color.DarkGray)
+                        modifier = Modifier.background(MaterialTheme.colorScheme.surface)
                     ) {
                         creditOptions.forEach { credit ->
                             DropdownMenuItem(
-                                text = { Text(credit, color = Color.White) },
+                                text = { Text(credit, color = MaterialTheme.colorScheme.onBackground) },
                                 onClick = {
                                     selectedCredits[i] = credit
                                     creditExpanded = false
@@ -107,8 +110,8 @@ fun GPACalculatorScreen2() {
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(20.dp)),
                         colors = ButtonDefaults.outlinedButtonColors(
-                            containerColor = Color.DarkGray,
-                            contentColor = Color.White
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onBackground
                         )
                     ) {
                         Text(text = selectedGrades[i].ifEmpty { "Grade" })
@@ -117,11 +120,11 @@ fun GPACalculatorScreen2() {
                     DropdownMenu(
                         expanded = gradeExpanded,
                         onDismissRequest = { gradeExpanded = false },
-                        modifier = Modifier.background(Color.DarkGray)
+                        modifier = Modifier.background(MaterialTheme.colorScheme.surface)
                     ) {
                         gradeOptions.forEach { grade ->
                             DropdownMenuItem(
-                                text = { Text(grade, color = Color.White) },
+                                text = { Text(grade, color = MaterialTheme.colorScheme.onBackground) },
                                 onClick = {
                                     selectedGrades[i] = grade
                                     gradeExpanded = false
@@ -138,14 +141,14 @@ fun GPACalculatorScreen2() {
             onClick = {
                 cgpa = calculateCGPA(selectedCredits, selectedGrades, gradeValues)
             },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Green)
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
         ) {
-            Text("Calculate CGPA", color = Color.White)
+            Text("Calculate CGPA", color = MaterialTheme.colorScheme.onBackground)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(text = "Your CGPA: ${String.format("%.2f", cgpa)}", color = Color.White, fontSize = 20.sp)
+        Text(text = "Your CGPA: ${String.format("%.2f", cgpa)}", color = MaterialTheme.colorScheme.onBackground, fontSize = 20.sp)
     }
 }
 
