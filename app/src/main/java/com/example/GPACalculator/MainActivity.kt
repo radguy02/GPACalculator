@@ -21,12 +21,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RADGuyTheme {
-                Scaffold { paddingValues ->
+                Scaffold() { innerPadding ->
                     Box(
                         modifier = Modifier
                             .background(Color(0xFF121212))
                             .fillMaxSize()
-                            .padding(paddingValues), // ✅ Auto-adjusts for system bars
+                            .padding(innerPadding),
                         contentAlignment = Alignment.Center
                     ) {
                         GPACalculatorScreen2()
