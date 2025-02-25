@@ -1,7 +1,6 @@
 
 package com.example.GPACalculator.screens
 
-import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
@@ -30,7 +31,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,26 +42,18 @@ val gradeValues = mapOf("S" to 10, "A" to 9, "B" to 8, "C" to 7, "D" to 6, "E" t
 @Preview
 @Composable
 fun GPACalculatorScreen2() {
-    val selectedCredits = remember { mutableStateListOf(*Array(7) { "" }) }
-    val selectedGrades = remember { mutableStateListOf(*Array(7) { "" }) }
-    var cgpa by remember { mutableStateOf(0.0) }
+    val selectedCredits = remember { mutableStateListOf(*Array(10) { "" }) }
+    val selectedGrades = remember { mutableStateListOf(*Array(10) { "" }) }
+    var gpa by remember { mutableStateOf(0.0) }
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .background(MaterialTheme.colorScheme.background),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .background(MaterialTheme.colorScheme.background)
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
-            text = "GPA Calculator",
-            color = MaterialTheme.colorScheme.onBackground,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top= 10.dp, bottom = 16.dp)
-        )
-        Spacer(modifier = Modifier.padding(20.dp))
-
-        for (i in 0 until 7) {
+        for (i in 0 until 10) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -135,20 +127,21 @@ fun GPACalculatorScreen2() {
                 }
             }
         }
+
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = {
-                cgpa = calculateCGPA(selectedCredits, selectedGrades, gradeValues)
+                gpa = calculateCGPA(selectedCredits, selectedGrades, gradeValues)
             },
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
         ) {
-            Text("Calculate CGPA", color = MaterialTheme.colorScheme.onBackground)
+            Text("Calculate GPA", color = MaterialTheme.colorScheme.onBackground)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(text = "Your CGPA: ${String.format("%.2f", cgpa)}", color = MaterialTheme.colorScheme.onBackground, fontSize = 20.sp)
+        Text(text = "Your CGPA: ${String.format("%.2f", gpa)}", color = MaterialTheme.colorScheme.onBackground, fontSize = 20.sp)
     }
 }
 
