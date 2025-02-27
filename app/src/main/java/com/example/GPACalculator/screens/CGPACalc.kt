@@ -20,18 +20,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-@Preview
 @Composable
 fun CGPACalcScreen2() {
     val semCredits = remember { mutableStateListOf(*Array(8) { "" }) }
@@ -52,7 +48,7 @@ fun CGPACalcScreen2() {
                     value = semCredits[i],
                     onValueChange = { input ->
                         if (input.isEmpty() || input.matches(Regex("^\\d+(\\.\\d{0,1})?$"))) {
-                            semCredits[i] = input // ✅ Works correctly
+                            semCredits[i] = input
                         }
                     },
                     label = { Text("Sem ${i + 1}", color = MaterialTheme.colorScheme.onBackground) },
@@ -67,7 +63,7 @@ fun CGPACalcScreen2() {
                     value = semGPA[i],
                     onValueChange = { input ->
                         if (input.isEmpty() || input.matches(Regex("^(10(\\.0{0,2})?|[0-9](\\.\\d{0,2})?)?$"))){
-                            semGPA[i] = input // ✅ Works correctly
+                            semGPA[i] = input
                         }
                     },
                     label = { Text("GPA") },

@@ -14,7 +14,7 @@ sealed class Screen(val route: String) {
 @Composable
 fun AppNavGraph(navController: NavHostController) {
     NavHost(
-        navController = navController,  // Pass the navController
+        navController = navController,
         startDestination = Screen.GPA.route  // Default start destination
     ) {
         composable(Screen.GPA.route) { GPACalculatorScreen2() }

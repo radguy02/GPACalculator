@@ -24,6 +24,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,7 +32,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -39,12 +39,11 @@ val creditOptions = listOf("1", "1.5", "2", "3", "4", "6") // Updated credits li
 val gradeOptions = listOf("S", "A", "B", "C", "D", "E", "F", "N") // Grades list
 val gradeValues = mapOf("S" to 10, "A" to 9, "B" to 8, "C" to 7, "D" to 6, "E" to 5, "F" to 0, "N" to 0)
 
-@Preview
 @Composable
 fun GPACalculatorScreen2() {
     val selectedCredits = remember { mutableStateListOf(*Array(10) { "" }) }
     val selectedGrades = remember { mutableStateListOf(*Array(10) { "" }) }
-    var gpa by remember { mutableStateOf(0.0) }
+    var gpa by remember { mutableDoubleStateOf(0.0) }
     Column(
         modifier = Modifier
             .fillMaxSize()
